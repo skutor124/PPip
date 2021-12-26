@@ -1,13 +1,24 @@
 
 import tkinter as tk
 from normgostvrode1 import *
-
-
 def graphic_interface():
+    count=0
     def say_hello():
         print("здарова бандиты")
     def create_newlabel():
         label = tk.Label(win,text='some text').pack()
+    def counter():
+        global count
+        count+=1
+        btn_4['text']=f'counter:{count}'
+    def randomcolor():
+        win.config(bg='#0e4c6a')
+    def get_entry():
+        value=name.get()
+        if value:
+            print(value)
+    def del_entry():
+        name.delete(0,tk.END)
 
 
 
@@ -19,23 +30,57 @@ def graphic_interface():
     win.resizable(True, True)
     win.minsize(600, 400)
     win.config(bg='#b49add', )
-    label_1 = tk.Label(win,
-                       text='anime na ave',
-                       bg='cyan',
-                       fg='#097a6a',
-                       font=('Arrial', 30, 'bold'),
-                       padx=40,pady=5, # отступ по х у от краев
-                       width=20, height=2, # ширина высота лейбла
-                       anchor='se',
-                       relief=tk.RAISED,
-                       bd=10, # ширина рамок
-                       # justify=tk.CENTER
-                       ).pack()
-    btn_1 = tk.Button(win, fg='#097a6a', bg='red', text='здарова бандит',command=say_hello).pack()
-    btn_2 = tk.Button(win,bg='cyan', fg='#097a6a', text='if u wanna create new label, just touch me',
-                      command=create_newlabel).pack()
-    btn_3 = tk.Button(win, bg='cyan', fg='#097a6a', text='if u wanna lambda, just touch me',
-                      command=lambda: tk.Label(win,text='some lambda').pack()).pack()
+    # win['bg']='red'
+    # label_1 = tk.Label(win,
+    #                    text='anime na ave',
+    #                    bg='cyan',
+    #                    fg='#097a6a',
+    #                    font=('Arrial', 30, 'bold'),
+    #                    padx=40,pady=5, # отступ по х у от краев
+    #                    width=20, height=2, # ширина высота лейбла
+    #                    anchor='se',
+    #                    relief=tk.RAISED,
+    #                    bd=10, # ширина рамок
+    #                    # justify=tk.CENTER
+    #                    ).pack()
+    # btn_1 = tk.Button(win, fg='#097a6a', bg='red', text='здарова бандит',command=say_hello).pack()
+    #
+    # btn_2 = tk.Button(win, bg='cyan', fg='#097a6a', text='if u wanna create new label, just touch me',
+    #                   command=create_newlabel).pack()
+    #
+    # btn_3 = tk.Button(win, bg='cyan', fg='#097a6a', text='if u wanna lambda, just touch me', activebackground='blue',
+    #                   command=lambda: tk.Label(win, bg='black', fg='white', text='lambda lives matter').pack()).pack()
+    #
+    # btn_4 = tk.Button(win, bg='orange', fg='#097a6a', text=f'counter:{count}',
+    #                   command=counter).pack()
+    # btn_5 = tk.Button(win, bg='PURPLE', fg='#097a6a', text='change bg color',
+    #                   command=randomcolor).pack()
+    # btn_6 = tk.Button(win, text='griddddd1').grid(row=0, column=0, stick='w')
+    # btn_7 = tk.Button(win, text='griddddd2').grid(row=0, column=1, stick='w')
+    # btn_8 = tk.Button(win, text='griddddd3').grid(row=1, column=0, stick='e')
+    # btn_9 = tk.Button(win, text='gridddddeeeeeer4').grid(row=1, column=1)
+    # btn_10 = tk.Button(win, text='griddddd5').grid(row=2, column=0, stick='we')
+    # btn_11 = tk.Button(win, text='griddddd6').grid(row=3, column=0,columnspan=2,stick='we')
+    # btn_1w = tk.Button(win, text='griddddd7').grid(row=0, column=2, rowspan=4, stick='ns')
+    # for i in range(5):
+    #     for j in range(4):
+    #         tk.Button(win, bg='orange', fg='#097a6a', text=f'Hi: {i}\t{j}').grid(row=i, column=j, stick='we')
+
+    win.grid_columnconfigure(0, minsize=200)
+    win.grid_columnconfigure(1, minsize=150)
+    name = tk.Entry(win, bg='orange')
+    name.grid(row=0, column=1, stick='we')
+
+    tk.Label(win, text='Name:').grid(row=0, column=0, stick='we')
+
+    tk.Button(win, text='OK', command=get_entry).grid(row=1, column=0, stick='we')
+
+    tk.Button(win, text='del', command=del_entry).grid(row=1, column=1, stick='we')
+    tk.Button(win, text='ins', command=lambda: name.insert('end','kekeek')).grid(row=1, column=2, stick='we')
+
+    tk.Label(win, text='password:').grid(row=2, column=0, stick='we')
+    tk.Entry(win, bg='orange', show='*').grid(row=2, column=1, stick='we') #пароль в звёздочках
+
 
 
     win.mainloop()

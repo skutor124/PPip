@@ -1,3 +1,4 @@
+#(not German's version)
 #!/usr/bin/env python3
 """
 This is an exercise in secure symmetric-key encryption, implemented in pure

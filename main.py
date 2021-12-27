@@ -1,22 +1,33 @@
 import tkinter as tk
 from normgostvrode1 import *
+import os
+from hashlib import sha256
 
+
+
+
+key = 18318279387912387912789378912379821879387978238793278872378329832982398023031
 def graphic_interface():
-    count=0
+
+    # key='dsdsd'
+    # print(key)
     def say_hello():
         print("здарова бандиты")
     def create_newlabel():
-        label = tk.Label(win,text='some text').pack()
+        label = tk.Label(win, text='some text').pack()
     # def counter():
     #     global count
     #     count+=1
     #     btn_4['text']=f'counter:{count}'
     def randomcolor():
         win.config(bg='#0e4c6a')
-    def get_entry():
+    def get_key():
         value=name.get()
         if value:
-            print(value)
+            global key
+
+            # print(value)
+            key=value
     def del_entry():
         name.delete(0,tk.END)
 
@@ -68,12 +79,13 @@ def graphic_interface():
 
     win.grid_columnconfigure(0, minsize=200)
     win.grid_columnconfigure(1, minsize=150)
-    name = tk.Entry(win, bg='orange')
+
+    name = tk.Entry(win, bg='orange', show='*')
     name.grid(row=0, column=1, stick='we')
 
-    tk.Label(win, text='Name:').grid(row=0, column=0, stick='we')
+    tk.Label(win, text='Enter key:').grid(row=0, column=0, stick='we')
 
-    tk.Button(win, text='OK', command=get_entry).grid(row=1, column=0, stick='we')
+    tk.Button(win, text='OK', command=get_key).grid(row=0, column=2, stick='we')
 
     tk.Button(win, text='del', command=del_entry).grid(row=1, column=1, stick='we')
     tk.Button(win, text='ins', command=lambda: name.insert('end','kekeek')).grid(row=1, column=2, stick='we')
@@ -87,15 +99,23 @@ def graphic_interface():
 
 
 def main():
+    input_ = input('Enter something: ')
+    a=sha256(input_.encode('utf-8')).digest()
+    b=sha256(input_.encode('utf-8')).hexdigest()
+    print(a)
+    print(len(a))
+    print(b)
+    # print(key)
 
-    graphic_interface()
-
-    key = 18318279387912387912789378912379821879387978238793278872378329832982398023031
     encript_route = r'1.txt'
     route = r'2.txt'
     decript_route = r'3.txt'
-    encrypt_gost(key, encript_route,route)
-    decrypt_gost(key,route, decript_route )
+
+    # graphic_interface()
+
+    # print(key)
+    # encrypt_gost(key, encript_route,route)
+    # decrypt_gost(key,route, decript_route )
 
 
 if __name__ == "__main__":
@@ -107,10 +127,16 @@ if __name__ == "__main__":
 
 # key = os.urandom(16)
 # key=key.decode('utf-8')
+# key=()
 # print("key:",key,)
 # iv = os.urandom(16)
 # print("iv:",iv)
-#
+# rand = int(int(str(os.urandom(4), encoding="UTF-8")).encode('hex'), 16)
+# print(rand)
+#  # You can then 'cycle' it against the length.
+# rand_char = chars_list[rand % 80] # or maybe '% len(chars_list)'
+
+
 # encrypted = aes.AES(key).encrypt_ctr(b'Attack at dawn', iv)
 # print(encrypted)
 #

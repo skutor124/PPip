@@ -116,4 +116,58 @@ def blocks_to_text(blocks):
             digits.append(temp[7 - i])
         temp = []
     return bytes(digits)
+# шифровка гост
+def encrypt_gost(key, encrypt_from, encrypt_to):
+    cyphred = []  # тут будет хранится зашифрованный текст
+    gost = Crypt(key, blocks)
+    # try:
+    s = []
+    # Читаем из файла текст и шифруем каждую букву
+    with open(encrypt_from, 'rb') as file:
+        s = file.read()
+        # print(s)
+        # print(len(s))
+    b = text_to_blocks(s)
+
+    # print(b)
+    # print(len(b))
+    for x in b:
+        cyphred.append(gost.encrypt(x))
+    """except: # если не удалось открыть файл, выходим
+        print(f"Не удалось открыть файл {encript_route}")
+        return"""
+    # try:
+    s = blocks_to_text(cyphred)
+    # записываем зашифрованный текст в файл
+    with open(encrypt_to, 'wb') as file:
+        file.write(s)
+    print("Файл зашифрован")
+    """except:
+        print(f"Не удалось открыть файл {decript_route}")
+        return"""
+# дешифровка гост
+def decrypt_gost(key, decrypt_from, decrypt_to):
+    decyphred = []  # тут будет храниться расшифрованный текст
+    gost = Crypt(key, blocks)
+    # try:
+    with open(decrypt_from, 'rb') as file:
+        s = file.read()
+    b = text_to_blocks(s)
+    for x in b:
+        #  расшифровываем текст из файла и добавляем его в список
+        decyphred.append(gost.decrypt(x))
+    """except:
+        print(f"Не удалось открыть файл {decript_route}")
+        return"""
+    s = blocks_to_text(decyphred)
+    # print(s,'its me')
+    # try:
+    with open(decrypt_to, 'wb') as file:
+        # объеденяем расшифрованные символы в строку и записываем в файл
+        file.write(s)
+    print("Файл расшифрован")
+    """except:
+        print(f"Не удалось открыть файл {encript_route}")
+        return"""
+
 

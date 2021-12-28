@@ -127,8 +127,8 @@ def main():
 
     graphic_interface()
     print(key)
-    # encrypt_gost(key, encript_route,route)
-    # decrypt_gost(key,route, decript_route )
+    encrypt_gost(key, encript_route,route)
+    decrypt_gost(key,route, decript_route )
 
 
 if __name__ == "__main__":

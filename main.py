@@ -5,8 +5,6 @@ import hashlib
 
 
 
-
-key = 18318279387912387912789378912379821879387978238793278872378329832982398023031
 def graphic_interface():
 
     def say_hello():
@@ -20,35 +18,49 @@ def graphic_interface():
     def randomcolor():
         win.config(bg='#0e4c6a')
     def get_key():
-        value=name.get()
+        value_key=name_key.get()
+        inp=name_inp.get()
+        out=name_out.get()
+        print(value_key)
+        print(inp)
+        print(out)
         global key
-        if value:
-            key=new_key(value)
+        if value_key:
+            key=new_key(value_key)
 
 
 
     def del_entry():
-        name.delete(0,tk.END)
-    def select_cipher():
-        eee=chipher_val.get()
-        chipher_text.set(f'вы выбрали{eee}')
-        if eee==1:
-            print("gost")
-        elif eee == 2:
-            print("aes")
-        elif eee == 3:
-            print("lol")
+        name_key.delete(0,tk.END)
 
+    chiphers = {
+        1: 'гост магма',
+        2: 'AES'
+    }
+    def select_cipher():
+        chipher_val_get = chipher_val.get()
+        chipher_text.set(f'вы выбрали {chiphers[chipher_val_get]}')
+
+    eds = {
+        1: 'encrypt',
+        2: 'decrypt'
+    }
+    def select_ed():
+        ed_val_get = ed_val.get()
+        ed_text_get = ed_text.get()
+
+        ed_text.set(f'вы выбрали {eds[ed_val_get]}')
 
 
     win = tk.Tk()
     win.title('    супер мега пупре шифратор')
     win.iconphoto(False, tk.PhotoImage(file='christmas-ball-11530976313ayoldrza17.png'))
-    w, h = 1280, 720
+    w, h = 640, 360
     win.geometry(f'{w}x{h}+130+28')
     win.resizable(True, True)
-    win.minsize(600, 400)
+    win.minsize(600, 300)
     win.config(bg='#b49add', )
+
     # win['bg']='red'
     # label_1 = tk.Label(win,
     #                    text='anime na ave',
@@ -86,26 +98,43 @@ def graphic_interface():
     #         tk.Button(win, bg='orange', fg='#097a6a', text=f'Hi: {i}\t{j}').grid(row=i, column=j, stick='we')
 
     # win.grid_columnconfigure(0, minsize=200)
-    # win.grid_columnconfigure(1, minsize=150)
+    win.grid_columnconfigure(2, minsize=150)
+    win.grid_columnconfigure(3, minsize=150)
+
 ####
-    name = tk.Entry(win, bg='orange', show='*')
-    name.grid(row=0, column=1, stick='we')
+    name_key = tk.Entry(win, bg='orange', show='*')
+    name_key.grid(row=0, column=1, stick='we')
 
-    tk.Label(win, text='Enter key:').grid(row=0, column=0, stick='we')
+    tk.Label(win, text='Enter key:', bg='black', fg='white').grid(row=0, column=0, stick='we')
+    tk.Button(win, text='OK', command=get_key, bg='blue').grid(row=2, column=2, stick='nswe')
 
-    tk.Button(win, text='OK', command=get_key).grid(row=0, column=2, stick='we')
+    # tk.Button(win, text='del', command=del_entry).grid(row=1, column=1, stick='we')
+    # tk.Button(win, text='ins', command=lambda: name.insert('end','kekeek')).grid(row=1, column=2, stick='we')
 
-    tk.Button(win, text='del', command=del_entry).grid(row=1, column=1, stick='we')
-    tk.Button(win, text='ins', command=lambda: name.insert('end','kekeek')).grid(row=1, column=2, stick='we')
+    tk.Label(win, text='Enter input file:', bg='black', fg='white').grid(row=1, column=0, stick='we')
+    name_inp = tk.Entry(win, bg='orange')
+    name_inp.grid(row=1, column=1, stick='we')
 
-    tk.Label(win, text='password:').grid(row=2, column=0, stick='we')
-    tk.Entry(win, bg='orange', show='*').grid(row=2, column=1, stick='we') #пароль в звёздочках
+    tk.Label(win, text='Enter output file:', bg='black', fg='white').grid(row=2, column=0, stick='we')
+    name_out = tk.Entry(win, bg='orange')
+    name_out.grid(row=2, column=1, stick='we')
+
+    ed_val = tk.IntVar()
+    ed_text = tk.StringVar()
+    tk.Radiobutton(win, text='encrypt', variable=ed_val, value=1, command=select_ed, bg='orange').grid(
+        row=0, column=2, stick='we')
+    tk.Radiobutton(win, text='decrypt', variable=ed_val, value=2, command=select_ed, bg='orange').grid(row=1,
+                                                                                                            column=2,
+                                                                                                            stick='we')
+
+    tk.Label(win, textvariable=ed_text, bg='#b49add').grid(row=3, column=2, stick='w')
+
 
     chipher_val = tk.IntVar()
     chipher_text=tk.StringVar()
-    tk.Radiobutton(win, text='гост магма', variable=chipher_val, value=1, command=select_cipher).grid(row=0, column=3,stick='w')
-    tk.Radiobutton(win, text='AES', variable=chipher_val, value=2, command=select_cipher).grid(row=1, column=3, stick='w')
-    tk.Radiobutton(win, text='lol', variable=chipher_val, value=3, command=select_cipher).grid(row=2, column=3, stick='w')
+    tk.Radiobutton(win, text='гост магма', variable=chipher_val, value=1, command=select_cipher, bg='orange').grid(row=0, column=3,stick='we')
+    tk.Radiobutton(win, text='AES', variable=chipher_val, value=2, command=select_cipher, bg='orange').grid(row=1, column=3, stick='we')
+
     tk.Label(win, textvariable=chipher_text, bg='#b49add').grid(row=3, column=3, stick='w')
 
     win.mainloop()
@@ -119,8 +148,7 @@ def new_key(password):
 
 
 def main():
-
-
+    key = 18318279387912387912789378912379821879387978238793278872378329832982398023031
     encript_route = r'1.txt'
     route = r'2.txt'
     decript_route = r'3.txt'
@@ -128,7 +156,7 @@ def main():
     graphic_interface()
     print(key)
     encrypt_gost(key, encript_route,route)
-    decrypt_gost(key,route, decript_route )
+    decrypt_gost(key,route, decript_route)
 
 
 if __name__ == "__main__":

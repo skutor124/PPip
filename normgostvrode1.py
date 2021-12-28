@@ -90,12 +90,12 @@ class Crypt(object):
             left_part, right_part = _decrypt_round(left_part, right_part, self._subkeys[(7 - i) % 8])
         return (left_part << 32) | right_part  # сливаем половинки вместе
  
-def text_to_blocks(text): # открытый текст в бинарном формате, длинна блоков
-    blocks = [] 
+def text_to_blocks(text, lenght): # открытый текст в бинарном формате, длинна блоков
+    blocks = []
     block = 0
     j = 0
     while (j < len(text)):
-        for i in range(j, j + 8):
+        for i in range(j, j + lenght):
             try:
                 block = (block << 8) | text[i]
             except:
@@ -127,7 +127,7 @@ def encrypt_gost(key, encrypt_from, encrypt_to):
         s = file.read()
         # print(s)
         # print(len(s))
-    b = text_to_blocks(s)
+    b = text_to_blocks(s, 8)
 
     # print(b)
     # print(len(b))
@@ -152,7 +152,7 @@ def decrypt_gost(key, decrypt_from, decrypt_to):
     # try:
     with open(decrypt_from, 'rb') as file:
         s = file.read()
-    b = text_to_blocks(s)
+    b = text_to_blocks(s, 8)
     for x in b:
         #  расшифровываем текст из файла и добавляем его в список
         decyphred.append(gost.decrypt(x))
@@ -169,5 +169,7 @@ def decrypt_gost(key, decrypt_from, decrypt_to):
     """except:
         print(f"Не удалось открыть файл {encript_route}")
         return"""
+
+
 
 

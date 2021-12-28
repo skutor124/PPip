@@ -21,16 +21,14 @@ def graphic_interface():
         value_key=name_key.get()
         inpp=name_inp.get()
         outt=name_out.get()
-        print(value_key)
-        print(inpp)
-        print(outt)
-        if inpp=="":
-            print(43424)
+        # print(value_key)
+        # print(inpp)
+        # print(outt)
         global key, input_route, output_route
         if value_key:
             key = new_key(value_key)
         #если выбрано зашифровать
-        if ed_val.get() == 1 :
+        if ed_val.get() == 1:
             input_route = inpp
             if inpp == '':
                 input_route = r'1.txt'
@@ -38,7 +36,7 @@ def graphic_interface():
             if outt == '':
                 output_route = r'2.txt'
             encrypt_gost(key, input_route, output_route)
-
+        #если выбрано расшифровать
         elif ed_val.get() == 2:
             input_route = inpp
             if inpp == '':
@@ -132,11 +130,12 @@ def new_key(password):
 
 
 def main():
-    global key, encript_route, route, decript_route
+    global key
     key = 18318279387912387912789378912379821879387978238793278872378329832982398023031
 
     graphic_interface()
-    
+    # print(key)
+
 
 
 if __name__ == "__main__":

@@ -2,21 +2,11 @@ import tkinter as tk
 from normgostvrode1 import *
 import os
 import hashlib
-
+from qwe import *
 
 
 def graphic_interface():
 
-    def say_hello():
-        print("здарова бандиты")
-    def create_newlabel():
-        label = tk.Label(win, text='some text').pack()
-    # def counter():
-    #     global count
-    #     count+=1
-    #     btn_4['text']=f'counter:{count}'
-    def randomcolor():
-        win.config(bg='#0e4c6a')
     def get_key_inp_out():
         value_key=name_key.get()
         inpp=name_inp.get()
@@ -26,28 +16,52 @@ def graphic_interface():
         # print(outt)
         global key, input_route, output_route
         if value_key:
-            key = new_key(value_key)
-        #если выбрано зашифровать
-        if ed_val.get() == 1:
-            input_route = inpp
-            if inpp == '':
-                input_route = r'1.txt'
-            output_route = outt
-            if outt == '':
-                output_route = r'2.txt'
-            encrypt_gost(key, input_route, output_route)
-        #если выбрано расшифровать
-        elif ed_val.get() == 2:
-            input_route = inpp
-            if inpp == '':
-                input_route = r'2.txt'
-            output_route = outt
-            if outt == '':
-                output_route = r'3.txt'
-            decrypt_gost(key, input_route, output_route)
+            key = new_key_gost(value_key)
+            # print(key)
+        if chipher_val.get() == 1:
+            # если выбрано зашифровать
+            if ed_val.get() == 1:
+                input_route = inpp
+                if inpp == '':
+                    input_route = r'1.txt'
+                output_route = outt
+                if outt == '':
+                    output_route = r'2.txt'
+                encrypt_gost(key, input_route, output_route)
+            #если выбрано расшифровать
+            elif ed_val.get() == 2:
+                input_route = inpp
+                if inpp == '':
+                    input_route = r'2.txt'
+                output_route = outt
+                if outt == '':
+                    output_route = r'3.txt'
+                decrypt_gost(key, input_route, output_route)
 
-        print(input_route)
-        print(output_route)
+
+
+        elif chipher_val.get() == 2:
+            # если выбрано зашифровать
+            if ed_val.get() == 1:
+                input_route = inpp
+                if inpp == '':
+                    input_route = r'1.txt'
+                output_route = outt
+                if outt == '':
+                    output_route = r'2.txt'
+                encrypt_aes(value_key, input_route, output_route)
+            # если выбрано расшифровать
+            elif ed_val.get() == 2:
+                input_route = inpp
+                if inpp == '':
+                    input_route = r'2.txt'
+                output_route = outt
+                if outt == '':
+                    output_route = r'3.txt'
+                decrypt_aes(value_key, input_route, output_route)
+
+        # print(input_route)
+        # print(output_route)
 
     def del_entry():
         name_key.delete(0,tk.END)
@@ -121,12 +135,17 @@ def graphic_interface():
 
     win.mainloop()
 
-def new_key(password):
+def new_key_gost(password):
     hash_object = hashlib.sha256(bytes(password, 'utf-8'))
     hex_dig = hash_object.hexdigest()
     keys = text_to_blocks(bytes(hex_dig, 'utf-8'), 32)
     key = keys[0]
     return key
+# def new_key_aes128(password):
+#     hash_object = hashlib.sha256(bytes(password, 'utf-8'))
+#     hex_dig = hash_object.hexdigest()
+#
+#     return key
 
 
 def main():

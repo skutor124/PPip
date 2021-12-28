@@ -169,7 +169,3 @@ def decrypt_gost(key, decrypt_from, decrypt_to):
     """except:
         print(f"Не удалось открыть файл {encript_route}")
         return"""
-
-
-
-

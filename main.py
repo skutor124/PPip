@@ -17,18 +17,39 @@ def graphic_interface():
     #     btn_4['text']=f'counter:{count}'
     def randomcolor():
         win.config(bg='#0e4c6a')
-    def get_key():
+    def get_key_inp_out():
         value_key=name_key.get()
-        inp=name_inp.get()
-        out=name_out.get()
+        inpp=name_inp.get()
+        outt=name_out.get()
         print(value_key)
-        print(inp)
-        print(out)
-        global key
+        print(inpp)
+        print(outt)
+        if inpp=="":
+            print(43424)
+        global key, input_route, output_route
         if value_key:
-            key=new_key(value_key)
+            key = new_key(value_key)
+        #если выбрано зашифровать
+        if ed_val.get() == 1 :
+            input_route = inpp
+            if inpp == '':
+                input_route = r'1.txt'
+            output_route = outt
+            if outt == '':
+                output_route = r'2.txt'
+            encrypt_gost(key, input_route, output_route)
 
+        elif ed_val.get() == 2:
+            input_route = inpp
+            if inpp == '':
+                input_route = r'2.txt'
+            output_route = outt
+            if outt == '':
+                output_route = r'3.txt'
+            decrypt_gost(key, input_route, output_route)
 
+        print(input_route)
+        print(output_route)
 
     def del_entry():
         name_key.delete(0,tk.END)
@@ -61,43 +82,6 @@ def graphic_interface():
     win.minsize(600, 300)
     win.config(bg='#b49add', )
 
-    # win['bg']='red'
-    # label_1 = tk.Label(win,
-    #                    text='anime na ave',
-    #                    bg='cyan',
-    #                    fg='#097a6a',
-    #                    font=('Arrial', 30, 'bold'),
-    #                    padx=40,pady=5, # отступ по х у от краев
-    #                    width=20, height=2, # ширина высота лейбла
-    #                    anchor='se',
-    #                    relief=tk.RAISED,
-    #                    bd=10, # ширина рамок
-    #                    # justify=tk.CENTER
-    #                    ).pack()
-    # btn_1 = tk.Button(win, fg='#097a6a', bg='red', text='здарова бандит',command=say_hello).pack()
-    #
-    # btn_2 = tk.Button(win, bg='cyan', fg='#097a6a', text='if u wanna create new label, just touch me',
-    #                   command=create_newlabel).pack()
-    #
-    # btn_3 = tk.Button(win, bg='cyan', fg='#097a6a', text='if u wanna lambda, just touch me', activebackground='blue',
-    #                   command=lambda: tk.Label(win, bg='black', fg='white', text='lambda lives matter').pack()).pack()
-    #
-    # btn_4 = tk.Button(win, bg='orange', fg='#097a6a', text=f'counter:{count}',
-    #                   command=counter).pack()
-    # btn_5 = tk.Button(win, bg='PURPLE', fg='#097a6a', text='change bg color',
-    #                   command=randomcolor).pack()
-    # btn_6 = tk.Button(win, text='griddddd1').grid(row=0, column=0, stick='w')
-    # btn_7 = tk.Button(win, text='griddddd2').grid(row=0, column=1, stick='w')
-    # btn_8 = tk.Button(win, text='griddddd3').grid(row=1, column=0, stick='e')
-    # btn_9 = tk.Button(win, text='gridddddeeeeeer4').grid(row=1, column=1)
-    # btn_10 = tk.Button(win, text='griddddd5').grid(row=2, column=0, stick='we')
-    # btn_11 = tk.Button(win, text='griddddd6').grid(row=3, column=0,columnspan=2,stick='we')
-    # btn_1w = tk.Button(win, text='griddddd7').grid(row=0, column=2, rowspan=4, stick='ns')
-    # for i in range(5):
-    #     for j in range(4):
-    #         tk.Button(win, bg='orange', fg='#097a6a', text=f'Hi: {i}\t{j}').grid(row=i, column=j, stick='we')
-
-    # win.grid_columnconfigure(0, minsize=200)
     win.grid_columnconfigure(2, minsize=150)
     win.grid_columnconfigure(3, minsize=150)
 
@@ -106,7 +90,7 @@ def graphic_interface():
     name_key.grid(row=0, column=1, stick='we')
 
     tk.Label(win, text='Enter key:', bg='black', fg='white').grid(row=0, column=0, stick='we')
-    tk.Button(win, text='OK', command=get_key, bg='blue').grid(row=2, column=2, stick='nswe')
+    tk.Button(win, text='OK', command=get_key_inp_out, bg='blue').grid(row=2, column=2, stick='nswe')
 
     # tk.Button(win, text='del', command=del_entry).grid(row=1, column=1, stick='we')
     # tk.Button(win, text='ins', command=lambda: name.insert('end','kekeek')).grid(row=1, column=2, stick='we')
@@ -148,15 +132,11 @@ def new_key(password):
 
 
 def main():
+    global key, encript_route, route, decript_route
     key = 18318279387912387912789378912379821879387978238793278872378329832982398023031
-    encript_route = r'1.txt'
-    route = r'2.txt'
-    decript_route = r'3.txt'
 
     graphic_interface()
-    print(key)
-    encrypt_gost(key, encript_route,route)
-    decrypt_gost(key,route, decript_route)
+    
 
 
 if __name__ == "__main__":

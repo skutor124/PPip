@@ -160,25 +160,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-
-
-
-# key = os.urandom(16)
-# key=key.decode('utf-8')
-# key=()
-# print("key:",key,)
-# iv = os.urandom(16)
-# print("iv:",iv)
-# rand = int(int(str(os.urandom(4), encoding="UTF-8")).encode('hex'), 16)
-# print(rand)
-#  # You can then 'cycle' it against the length.
-# rand_char = chars_list[rand % 80] # or maybe '% len(chars_list)'
-
-
-# encrypted = aes.AES(key).encrypt_ctr(b'Attack at dawn', iv)
-# print(encrypted)
-#
-# print(aes.AES(key).decrypt_ctr(encrypted, iv))
-# # key='hgfakavsdhdbf2141jhrbh32jtvjbdjm,'
-# # a=encrypt(key, plaintext,)
